@@ -30,6 +30,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include <google/protobuf/empty.pb.h>
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_satellite_2eproto 
 
@@ -38,7 +39,7 @@ namespace protobuf_satellite_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[2];
+  static const ::google::protobuf::internal::ParseTable schema[4];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -48,13 +49,21 @@ void AddDescriptors();
 class GeneralStatus;
 class GeneralStatusDefaultTypeInternal;
 extern GeneralStatusDefaultTypeInternal _GeneralStatus_default_instance_;
+class GetCurrentVersionResponse;
+class GetCurrentVersionResponseDefaultTypeInternal;
+extern GetCurrentVersionResponseDefaultTypeInternal _GetCurrentVersionResponse_default_instance_;
 class HeartbeatRequest;
 class HeartbeatRequestDefaultTypeInternal;
 extern HeartbeatRequestDefaultTypeInternal _HeartbeatRequest_default_instance_;
+class ServiceInfo;
+class ServiceInfoDefaultTypeInternal;
+extern ServiceInfoDefaultTypeInternal _ServiceInfo_default_instance_;
 namespace google {
 namespace protobuf {
 template<> ::GeneralStatus* Arena::CreateMaybeMessage<::GeneralStatus>(Arena*);
+template<> ::GetCurrentVersionResponse* Arena::CreateMaybeMessage<::GetCurrentVersionResponse>(Arena*);
 template<> ::HeartbeatRequest* Arena::CreateMaybeMessage<::HeartbeatRequest>(Arena*);
+template<> ::ServiceInfo* Arena::CreateMaybeMessage<::ServiceInfo>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 
@@ -265,6 +274,122 @@ class HeartbeatRequest : public ::google::protobuf::Message /* @@protoc_insertio
 
   // accessors -------------------------------------------------------
 
+  // .ServiceInfo service_info = 1;
+  bool has_service_info() const;
+  void clear_service_info();
+  static const int kServiceInfoFieldNumber = 1;
+  private:
+  const ::ServiceInfo& _internal_service_info() const;
+  public:
+  const ::ServiceInfo& service_info() const;
+  ::ServiceInfo* release_service_info();
+  ::ServiceInfo* mutable_service_info();
+  void set_allocated_service_info(::ServiceInfo* service_info);
+
+  // int64 timestamp = 2;
+  void clear_timestamp();
+  static const int kTimestampFieldNumber = 2;
+  ::google::protobuf::int64 timestamp() const;
+  void set_timestamp(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:HeartbeatRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::ServiceInfo* service_info_;
+  ::google::protobuf::int64 timestamp_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_satellite_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class ServiceInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ServiceInfo) */ {
+ public:
+  ServiceInfo();
+  virtual ~ServiceInfo();
+
+  ServiceInfo(const ServiceInfo& from);
+
+  inline ServiceInfo& operator=(const ServiceInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ServiceInfo(ServiceInfo&& from) noexcept
+    : ServiceInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline ServiceInfo& operator=(ServiceInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServiceInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ServiceInfo* internal_default_instance() {
+    return reinterpret_cast<const ServiceInfo*>(
+               &_ServiceInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  void Swap(ServiceInfo* other);
+  friend void swap(ServiceInfo& a, ServiceInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ServiceInfo* New() const final {
+    return CreateMaybeMessage<ServiceInfo>(NULL);
+  }
+
+  ServiceInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ServiceInfo>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ServiceInfo& from);
+  void MergeFrom(const ServiceInfo& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ServiceInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
   // string service_name = 1;
   void clear_service_name();
   static const int kServiceNameFieldNumber = 1;
@@ -293,19 +418,122 @@ class HeartbeatRequest : public ::google::protobuf::Message /* @@protoc_insertio
   ::std::string* release_server_ip_port();
   void set_allocated_server_ip_port(::std::string* server_ip_port);
 
-  // uint64 timestamp = 3;
-  void clear_timestamp();
-  static const int kTimestampFieldNumber = 3;
-  ::google::protobuf::uint64 timestamp() const;
-  void set_timestamp(::google::protobuf::uint64 value);
+  // uint32 weight = 3;
+  void clear_weight();
+  static const int kWeightFieldNumber = 3;
+  ::google::protobuf::uint32 weight() const;
+  void set_weight(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:HeartbeatRequest)
+  // @@protoc_insertion_point(class_scope:ServiceInfo)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr service_name_;
   ::google::protobuf::internal::ArenaStringPtr server_ip_port_;
-  ::google::protobuf::uint64 timestamp_;
+  ::google::protobuf::uint32 weight_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_satellite_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GetCurrentVersionResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:GetCurrentVersionResponse) */ {
+ public:
+  GetCurrentVersionResponse();
+  virtual ~GetCurrentVersionResponse();
+
+  GetCurrentVersionResponse(const GetCurrentVersionResponse& from);
+
+  inline GetCurrentVersionResponse& operator=(const GetCurrentVersionResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetCurrentVersionResponse(GetCurrentVersionResponse&& from) noexcept
+    : GetCurrentVersionResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetCurrentVersionResponse& operator=(GetCurrentVersionResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetCurrentVersionResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetCurrentVersionResponse* internal_default_instance() {
+    return reinterpret_cast<const GetCurrentVersionResponse*>(
+               &_GetCurrentVersionResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  void Swap(GetCurrentVersionResponse* other);
+  friend void swap(GetCurrentVersionResponse& a, GetCurrentVersionResponse& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetCurrentVersionResponse* New() const final {
+    return CreateMaybeMessage<GetCurrentVersionResponse>(NULL);
+  }
+
+  GetCurrentVersionResponse* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<GetCurrentVersionResponse>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const GetCurrentVersionResponse& from);
+  void MergeFrom(const GetCurrentVersionResponse& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetCurrentVersionResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int64 timestamp = 1;
+  void clear_timestamp();
+  static const int kTimestampFieldNumber = 1;
+  ::google::protobuf::int64 timestamp() const;
+  void set_timestamp(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:GetCurrentVersionResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int64 timestamp_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_satellite_2eproto::TableStruct;
 };
@@ -391,129 +619,223 @@ inline void GeneralStatus::set_allocated_message(::std::string* message) {
 
 // HeartbeatRequest
 
+// .ServiceInfo service_info = 1;
+inline bool HeartbeatRequest::has_service_info() const {
+  return this != internal_default_instance() && service_info_ != NULL;
+}
+inline void HeartbeatRequest::clear_service_info() {
+  if (GetArenaNoVirtual() == NULL && service_info_ != NULL) {
+    delete service_info_;
+  }
+  service_info_ = NULL;
+}
+inline const ::ServiceInfo& HeartbeatRequest::_internal_service_info() const {
+  return *service_info_;
+}
+inline const ::ServiceInfo& HeartbeatRequest::service_info() const {
+  const ::ServiceInfo* p = service_info_;
+  // @@protoc_insertion_point(field_get:HeartbeatRequest.service_info)
+  return p != NULL ? *p : *reinterpret_cast<const ::ServiceInfo*>(
+      &::_ServiceInfo_default_instance_);
+}
+inline ::ServiceInfo* HeartbeatRequest::release_service_info() {
+  // @@protoc_insertion_point(field_release:HeartbeatRequest.service_info)
+  
+  ::ServiceInfo* temp = service_info_;
+  service_info_ = NULL;
+  return temp;
+}
+inline ::ServiceInfo* HeartbeatRequest::mutable_service_info() {
+  
+  if (service_info_ == NULL) {
+    auto* p = CreateMaybeMessage<::ServiceInfo>(GetArenaNoVirtual());
+    service_info_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:HeartbeatRequest.service_info)
+  return service_info_;
+}
+inline void HeartbeatRequest::set_allocated_service_info(::ServiceInfo* service_info) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete service_info_;
+  }
+  if (service_info) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      service_info = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, service_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  service_info_ = service_info;
+  // @@protoc_insertion_point(field_set_allocated:HeartbeatRequest.service_info)
+}
+
+// int64 timestamp = 2;
+inline void HeartbeatRequest::clear_timestamp() {
+  timestamp_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 HeartbeatRequest::timestamp() const {
+  // @@protoc_insertion_point(field_get:HeartbeatRequest.timestamp)
+  return timestamp_;
+}
+inline void HeartbeatRequest::set_timestamp(::google::protobuf::int64 value) {
+  
+  timestamp_ = value;
+  // @@protoc_insertion_point(field_set:HeartbeatRequest.timestamp)
+}
+
+// -------------------------------------------------------------------
+
+// ServiceInfo
+
 // string service_name = 1;
-inline void HeartbeatRequest::clear_service_name() {
+inline void ServiceInfo::clear_service_name() {
   service_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& HeartbeatRequest::service_name() const {
-  // @@protoc_insertion_point(field_get:HeartbeatRequest.service_name)
+inline const ::std::string& ServiceInfo::service_name() const {
+  // @@protoc_insertion_point(field_get:ServiceInfo.service_name)
   return service_name_.GetNoArena();
 }
-inline void HeartbeatRequest::set_service_name(const ::std::string& value) {
+inline void ServiceInfo::set_service_name(const ::std::string& value) {
   
   service_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:HeartbeatRequest.service_name)
+  // @@protoc_insertion_point(field_set:ServiceInfo.service_name)
 }
 #if LANG_CXX11
-inline void HeartbeatRequest::set_service_name(::std::string&& value) {
+inline void ServiceInfo::set_service_name(::std::string&& value) {
   
   service_name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:HeartbeatRequest.service_name)
+  // @@protoc_insertion_point(field_set_rvalue:ServiceInfo.service_name)
 }
 #endif
-inline void HeartbeatRequest::set_service_name(const char* value) {
+inline void ServiceInfo::set_service_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   service_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:HeartbeatRequest.service_name)
+  // @@protoc_insertion_point(field_set_char:ServiceInfo.service_name)
 }
-inline void HeartbeatRequest::set_service_name(const char* value, size_t size) {
+inline void ServiceInfo::set_service_name(const char* value, size_t size) {
   
   service_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:HeartbeatRequest.service_name)
+  // @@protoc_insertion_point(field_set_pointer:ServiceInfo.service_name)
 }
-inline ::std::string* HeartbeatRequest::mutable_service_name() {
+inline ::std::string* ServiceInfo::mutable_service_name() {
   
-  // @@protoc_insertion_point(field_mutable:HeartbeatRequest.service_name)
+  // @@protoc_insertion_point(field_mutable:ServiceInfo.service_name)
   return service_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* HeartbeatRequest::release_service_name() {
-  // @@protoc_insertion_point(field_release:HeartbeatRequest.service_name)
+inline ::std::string* ServiceInfo::release_service_name() {
+  // @@protoc_insertion_point(field_release:ServiceInfo.service_name)
   
   return service_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void HeartbeatRequest::set_allocated_service_name(::std::string* service_name) {
+inline void ServiceInfo::set_allocated_service_name(::std::string* service_name) {
   if (service_name != NULL) {
     
   } else {
     
   }
   service_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), service_name);
-  // @@protoc_insertion_point(field_set_allocated:HeartbeatRequest.service_name)
+  // @@protoc_insertion_point(field_set_allocated:ServiceInfo.service_name)
 }
 
 // string server_ip_port = 2;
-inline void HeartbeatRequest::clear_server_ip_port() {
+inline void ServiceInfo::clear_server_ip_port() {
   server_ip_port_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& HeartbeatRequest::server_ip_port() const {
-  // @@protoc_insertion_point(field_get:HeartbeatRequest.server_ip_port)
+inline const ::std::string& ServiceInfo::server_ip_port() const {
+  // @@protoc_insertion_point(field_get:ServiceInfo.server_ip_port)
   return server_ip_port_.GetNoArena();
 }
-inline void HeartbeatRequest::set_server_ip_port(const ::std::string& value) {
+inline void ServiceInfo::set_server_ip_port(const ::std::string& value) {
   
   server_ip_port_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:HeartbeatRequest.server_ip_port)
+  // @@protoc_insertion_point(field_set:ServiceInfo.server_ip_port)
 }
 #if LANG_CXX11
-inline void HeartbeatRequest::set_server_ip_port(::std::string&& value) {
+inline void ServiceInfo::set_server_ip_port(::std::string&& value) {
   
   server_ip_port_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:HeartbeatRequest.server_ip_port)
+  // @@protoc_insertion_point(field_set_rvalue:ServiceInfo.server_ip_port)
 }
 #endif
-inline void HeartbeatRequest::set_server_ip_port(const char* value) {
+inline void ServiceInfo::set_server_ip_port(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   server_ip_port_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:HeartbeatRequest.server_ip_port)
+  // @@protoc_insertion_point(field_set_char:ServiceInfo.server_ip_port)
 }
-inline void HeartbeatRequest::set_server_ip_port(const char* value, size_t size) {
+inline void ServiceInfo::set_server_ip_port(const char* value, size_t size) {
   
   server_ip_port_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:HeartbeatRequest.server_ip_port)
+  // @@protoc_insertion_point(field_set_pointer:ServiceInfo.server_ip_port)
 }
-inline ::std::string* HeartbeatRequest::mutable_server_ip_port() {
+inline ::std::string* ServiceInfo::mutable_server_ip_port() {
   
-  // @@protoc_insertion_point(field_mutable:HeartbeatRequest.server_ip_port)
+  // @@protoc_insertion_point(field_mutable:ServiceInfo.server_ip_port)
   return server_ip_port_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* HeartbeatRequest::release_server_ip_port() {
-  // @@protoc_insertion_point(field_release:HeartbeatRequest.server_ip_port)
+inline ::std::string* ServiceInfo::release_server_ip_port() {
+  // @@protoc_insertion_point(field_release:ServiceInfo.server_ip_port)
   
   return server_ip_port_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void HeartbeatRequest::set_allocated_server_ip_port(::std::string* server_ip_port) {
+inline void ServiceInfo::set_allocated_server_ip_port(::std::string* server_ip_port) {
   if (server_ip_port != NULL) {
     
   } else {
     
   }
   server_ip_port_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), server_ip_port);
-  // @@protoc_insertion_point(field_set_allocated:HeartbeatRequest.server_ip_port)
+  // @@protoc_insertion_point(field_set_allocated:ServiceInfo.server_ip_port)
 }
 
-// uint64 timestamp = 3;
-inline void HeartbeatRequest::clear_timestamp() {
-  timestamp_ = GOOGLE_ULONGLONG(0);
+// uint32 weight = 3;
+inline void ServiceInfo::clear_weight() {
+  weight_ = 0u;
 }
-inline ::google::protobuf::uint64 HeartbeatRequest::timestamp() const {
-  // @@protoc_insertion_point(field_get:HeartbeatRequest.timestamp)
+inline ::google::protobuf::uint32 ServiceInfo::weight() const {
+  // @@protoc_insertion_point(field_get:ServiceInfo.weight)
+  return weight_;
+}
+inline void ServiceInfo::set_weight(::google::protobuf::uint32 value) {
+  
+  weight_ = value;
+  // @@protoc_insertion_point(field_set:ServiceInfo.weight)
+}
+
+// -------------------------------------------------------------------
+
+// GetCurrentVersionResponse
+
+// int64 timestamp = 1;
+inline void GetCurrentVersionResponse::clear_timestamp() {
+  timestamp_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 GetCurrentVersionResponse::timestamp() const {
+  // @@protoc_insertion_point(field_get:GetCurrentVersionResponse.timestamp)
   return timestamp_;
 }
-inline void HeartbeatRequest::set_timestamp(::google::protobuf::uint64 value) {
+inline void GetCurrentVersionResponse::set_timestamp(::google::protobuf::int64 value) {
   
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:HeartbeatRequest.timestamp)
+  // @@protoc_insertion_point(field_set:GetCurrentVersionResponse.timestamp)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

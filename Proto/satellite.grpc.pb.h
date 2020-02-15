@@ -42,16 +42,27 @@ class Satellite final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GeneralStatus>> PrepareAsyncHeartbeat(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GeneralStatus>>(PrepareAsyncHeartbeatRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::GetCurrentVersionResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>> AsyncGetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>>(AsyncGetCurrentVersionRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>> PrepareAsyncGetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>>(PrepareAsyncGetCurrentVersionRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
       virtual void Heartbeat(::grpc::ClientContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Heartbeat(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GeneralStatus* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetCurrentVersion(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GeneralStatus>* AsyncHeartbeatRaw(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GeneralStatus>* PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>* AsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>* PrepareAsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -63,11 +74,20 @@ class Satellite final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GeneralStatus>> PrepareAsyncHeartbeat(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GeneralStatus>>(PrepareAsyncHeartbeatRaw(context, request, cq));
     }
+    ::grpc::Status GetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::GetCurrentVersionResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>> AsyncGetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>>(AsyncGetCurrentVersionRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>> PrepareAsyncGetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>>(PrepareAsyncGetCurrentVersionRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
       void Heartbeat(::grpc::ClientContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response, std::function<void(::grpc::Status)>) override;
       void Heartbeat(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GeneralStatus* response, std::function<void(::grpc::Status)>) override;
+      void GetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetCurrentVersion(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -81,7 +101,10 @@ class Satellite final {
     class experimental_async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::GeneralStatus>* AsyncHeartbeatRaw(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GeneralStatus>* PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>* AsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>* PrepareAsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Heartbeat_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetCurrentVersion_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -90,6 +113,7 @@ class Satellite final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Heartbeat(::grpc::ServerContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response);
+    virtual ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Heartbeat : public BaseClass {
@@ -111,7 +135,27 @@ class Satellite final {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Heartbeat<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetCurrentVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_GetCurrentVersion() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GetCurrentVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetCurrentVersion(::grpc::ServerContext* context, ::google::protobuf::Empty* request, ::grpc::ServerAsyncResponseWriter< ::GetCurrentVersionResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Heartbeat<WithAsyncMethod_GetCurrentVersion<Service > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Heartbeat : public BaseClass {
    private:
@@ -137,7 +181,32 @@ class Satellite final {
     }
     virtual void Heartbeat(::grpc::ServerContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
-  typedef ExperimentalWithCallbackMethod_Heartbeat<Service > ExperimentalCallbackService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_GetCurrentVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_GetCurrentVersion() {
+      ::grpc::Service::experimental().MarkMethodCallback(1,
+        new ::grpc::internal::CallbackUnaryHandler< ::google::protobuf::Empty, ::GetCurrentVersionResponse>(
+          [this](::grpc::ServerContext* context,
+                 const ::google::protobuf::Empty* request,
+                 ::GetCurrentVersionResponse* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->GetCurrentVersion(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_GetCurrentVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_Heartbeat<ExperimentalWithCallbackMethod_GetCurrentVersion<Service > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Heartbeat : public BaseClass {
    private:
@@ -151,6 +220,23 @@ class Satellite final {
     }
     // disable synchronous version of this method
     ::grpc::Status Heartbeat(::grpc::ServerContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetCurrentVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_GetCurrentVersion() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GetCurrentVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -173,6 +259,26 @@ class Satellite final {
     }
     void RequestHeartbeat(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetCurrentVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_GetCurrentVersion() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_GetCurrentVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetCurrentVersion(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -201,6 +307,31 @@ class Satellite final {
     virtual void Heartbeat(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_GetCurrentVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_GetCurrentVersion() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(1,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->GetCurrentVersion(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_GetCurrentVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void GetCurrentVersion(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Heartbeat : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -220,9 +351,29 @@ class Satellite final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedHeartbeat(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::HeartbeatRequest,::GeneralStatus>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Heartbeat<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetCurrentVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_GetCurrentVersion() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler< ::google::protobuf::Empty, ::GetCurrentVersionResponse>(std::bind(&WithStreamedUnaryMethod_GetCurrentVersion<BaseClass>::StreamedGetCurrentVersion, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_GetCurrentVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetCurrentVersion(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::GetCurrentVersionResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Heartbeat<WithStreamedUnaryMethod_GetCurrentVersion<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Heartbeat<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_Heartbeat<WithStreamedUnaryMethod_GetCurrentVersion<Service > > StreamedService;
 };
 
 
