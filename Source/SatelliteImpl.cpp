@@ -1,6 +1,7 @@
 #include <map>
 #include <set>
 #include <ctime>
+#include <mutex>
 #include <cstdint>
 #include <spdlog/spdlog.h>
 
@@ -22,6 +23,7 @@ public:
     // ServerName -> ServerSet
     std::map<string, std::map<string, ServiceNode>> Servers;
     uint64_t LastUpdate;
+    std::mutex MutexServers, MutexLastUpdate;
 
     SatelliteInternal(void):
         LastUpdate(time(nullptr)) { }
@@ -40,6 +42,7 @@ SatelliteImpl::~SatelliteImpl(void)
 
 ::grpc::Status SatelliteImpl::Heartbeat(::grpc::ServerContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response)
 {
+
     // timestamp check
     auto ts = time(nullptr);
     response->set_code(0);
@@ -59,6 +62,7 @@ SatelliteImpl::~SatelliteImpl(void)
         return grpc::Status::OK;
     }
     // logic
+    const std::lock_guard<std::mutex> sguard(PImpl->MutexServers);
     const auto &serviceName = request->service_info().service_name();
     const auto &ip_port = request->service_info().server_ip_port();
     const auto weight = request->service_info().weight();
@@ -75,6 +79,7 @@ SatelliteImpl::~SatelliteImpl(void)
         if (np->second.Weight != weight)
         {
             np->second.Weight = weight;
+            const std::lock_guard<std::mutex> luguard(PImpl->MutexLastUpdate);
             PImpl->LastUpdate = ts;
         }
         np->second.LastHeartbeat = ts;
@@ -93,6 +98,7 @@ SatelliteImpl::~SatelliteImpl(void)
 {
     const auto ts = time(nullptr);
     response->mutable_status()->set_code(0);
+    const std::lock_guard<std::mutex> guard(PImpl->MutexServers);
     auto f = PImpl->Servers.find(request->service_name());
     if (f == PImpl->Servers.end())
     {
@@ -115,6 +121,7 @@ SatelliteImpl::~SatelliteImpl(void)
 
 ::grpc::Status SatelliteImpl::GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response)
 {
+    std::lock_guard<std::mutex> guard(PImpl->MutexServers);
     for (const auto &i : PImpl->Servers)
     {
         response->add_service_names(i.first);
