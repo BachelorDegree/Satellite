@@ -1,0 +1,2 @@
+# Satellite
+Service discovery module
