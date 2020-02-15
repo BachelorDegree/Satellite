@@ -11,6 +11,8 @@ public:
     ~SatelliteImpl(void);
     ::grpc::Status Heartbeat(::grpc::ServerContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response) override;
     ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override;
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override;
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override;
 private:
     SatelliteInternal *PImpl;
 };

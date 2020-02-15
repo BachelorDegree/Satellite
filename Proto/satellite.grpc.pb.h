@@ -49,6 +49,20 @@ class Satellite final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>> PrepareAsyncGetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>>(PrepareAsyncGetCurrentVersionRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::GetServiceNodesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServiceNodesResponse>> AsyncGetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServiceNodesResponse>>(AsyncGetServiceNodesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServiceNodesResponse>> PrepareAsyncGetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServiceNodesResponse>>(PrepareAsyncGetServiceNodesRaw(context, request, cq));
+    }
+    virtual ::grpc::Status GetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::GetAllServiceNamesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetAllServiceNamesResponse>> AsyncGetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetAllServiceNamesResponse>>(AsyncGetAllServiceNamesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetAllServiceNamesResponse>> PrepareAsyncGetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetAllServiceNamesResponse>>(PrepareAsyncGetAllServiceNamesRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -56,6 +70,10 @@ class Satellite final {
       virtual void Heartbeat(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GeneralStatus* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetCurrentVersion(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetServiceNodes(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetServiceNodesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetAllServiceNames(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetAllServiceNamesResponse* response, std::function<void(::grpc::Status)>) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -63,6 +81,10 @@ class Satellite final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GeneralStatus>* PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>* AsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetCurrentVersionResponse>* PrepareAsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetServiceNodesResponse>* AsyncGetServiceNodesRaw(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetServiceNodesResponse>* PrepareAsyncGetServiceNodesRaw(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetAllServiceNamesResponse>* AsyncGetAllServiceNamesRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetAllServiceNamesResponse>* PrepareAsyncGetAllServiceNamesRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -81,6 +103,20 @@ class Satellite final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>> PrepareAsyncGetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>>(PrepareAsyncGetCurrentVersionRaw(context, request, cq));
     }
+    ::grpc::Status GetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::GetServiceNodesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>> AsyncGetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>>(AsyncGetServiceNodesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>> PrepareAsyncGetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>>(PrepareAsyncGetServiceNodesRaw(context, request, cq));
+    }
+    ::grpc::Status GetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::GetAllServiceNamesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>> AsyncGetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>>(AsyncGetAllServiceNamesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>> PrepareAsyncGetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>>(PrepareAsyncGetAllServiceNamesRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
@@ -88,6 +124,10 @@ class Satellite final {
       void Heartbeat(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GeneralStatus* response, std::function<void(::grpc::Status)>) override;
       void GetCurrentVersion(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) override;
       void GetCurrentVersion(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetCurrentVersionResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetServiceNodes(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetServiceNodesResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetAllServiceNames(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetAllServiceNamesResponse* response, std::function<void(::grpc::Status)>) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -103,8 +143,14 @@ class Satellite final {
     ::grpc::ClientAsyncResponseReader< ::GeneralStatus>* PrepareAsyncHeartbeatRaw(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>* AsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetCurrentVersionResponse>* PrepareAsyncGetCurrentVersionRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>* AsyncGetServiceNodesRaw(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>* PrepareAsyncGetServiceNodesRaw(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>* AsyncGetAllServiceNamesRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>* PrepareAsyncGetAllServiceNamesRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Heartbeat_;
     const ::grpc::internal::RpcMethod rpcmethod_GetCurrentVersion_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetServiceNodes_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetAllServiceNames_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -114,6 +160,8 @@ class Satellite final {
     virtual ~Service();
     virtual ::grpc::Status Heartbeat(::grpc::ServerContext* context, const ::HeartbeatRequest* request, ::GeneralStatus* response);
     virtual ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response);
+    virtual ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response);
+    virtual ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Heartbeat : public BaseClass {
@@ -155,7 +203,47 @@ class Satellite final {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Heartbeat<WithAsyncMethod_GetCurrentVersion<Service > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetServiceNodes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_GetServiceNodes() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_GetServiceNodes() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetServiceNodes(::grpc::ServerContext* context, ::GetServiceNodesRequest* request, ::grpc::ServerAsyncResponseWriter< ::GetServiceNodesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetAllServiceNames : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_GetAllServiceNames() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_GetAllServiceNames() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetAllServiceNames(::grpc::ServerContext* context, ::google::protobuf::Empty* request, ::grpc::ServerAsyncResponseWriter< ::GetAllServiceNamesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Heartbeat<WithAsyncMethod_GetCurrentVersion<WithAsyncMethod_GetServiceNodes<WithAsyncMethod_GetAllServiceNames<Service > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Heartbeat : public BaseClass {
    private:
@@ -206,7 +294,57 @@ class Satellite final {
     }
     virtual void GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
-  typedef ExperimentalWithCallbackMethod_Heartbeat<ExperimentalWithCallbackMethod_GetCurrentVersion<Service > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_GetServiceNodes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_GetServiceNodes() {
+      ::grpc::Service::experimental().MarkMethodCallback(2,
+        new ::grpc::internal::CallbackUnaryHandler< ::GetServiceNodesRequest, ::GetServiceNodesResponse>(
+          [this](::grpc::ServerContext* context,
+                 const ::GetServiceNodesRequest* request,
+                 ::GetServiceNodesResponse* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->GetServiceNodes(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_GetServiceNodes() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_GetAllServiceNames : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_GetAllServiceNames() {
+      ::grpc::Service::experimental().MarkMethodCallback(3,
+        new ::grpc::internal::CallbackUnaryHandler< ::google::protobuf::Empty, ::GetAllServiceNamesResponse>(
+          [this](::grpc::ServerContext* context,
+                 const ::google::protobuf::Empty* request,
+                 ::GetAllServiceNamesResponse* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->GetAllServiceNames(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_GetAllServiceNames() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_Heartbeat<ExperimentalWithCallbackMethod_GetCurrentVersion<ExperimentalWithCallbackMethod_GetServiceNodes<ExperimentalWithCallbackMethod_GetAllServiceNames<Service > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Heartbeat : public BaseClass {
    private:
@@ -237,6 +375,40 @@ class Satellite final {
     }
     // disable synchronous version of this method
     ::grpc::Status GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetServiceNodes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_GetServiceNodes() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_GetServiceNodes() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetAllServiceNames : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_GetAllServiceNames() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_GetAllServiceNames() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -279,6 +451,46 @@ class Satellite final {
     }
     void RequestGetCurrentVersion(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetServiceNodes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_GetServiceNodes() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_GetServiceNodes() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetServiceNodes(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetAllServiceNames : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_GetAllServiceNames() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_GetAllServiceNames() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetAllServiceNames(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -332,6 +544,56 @@ class Satellite final {
     virtual void GetCurrentVersion(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_GetServiceNodes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_GetServiceNodes() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(2,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->GetServiceNodes(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_GetServiceNodes() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void GetServiceNodes(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_GetAllServiceNames : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_GetAllServiceNames() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(3,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->GetAllServiceNames(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_GetAllServiceNames() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void GetAllServiceNames(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Heartbeat : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -371,9 +633,49 @@ class Satellite final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedGetCurrentVersion(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::GetCurrentVersionResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Heartbeat<WithStreamedUnaryMethod_GetCurrentVersion<Service > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetServiceNodes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_GetServiceNodes() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler< ::GetServiceNodesRequest, ::GetServiceNodesResponse>(std::bind(&WithStreamedUnaryMethod_GetServiceNodes<BaseClass>::StreamedGetServiceNodes, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_GetServiceNodes() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetServiceNodes(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GetServiceNodesRequest,::GetServiceNodesResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetAllServiceNames : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_GetAllServiceNames() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler< ::google::protobuf::Empty, ::GetAllServiceNamesResponse>(std::bind(&WithStreamedUnaryMethod_GetAllServiceNames<BaseClass>::StreamedGetAllServiceNames, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_GetAllServiceNames() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetAllServiceNames(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::GetAllServiceNamesResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Heartbeat<WithStreamedUnaryMethod_GetCurrentVersion<WithStreamedUnaryMethod_GetServiceNodes<WithStreamedUnaryMethod_GetAllServiceNames<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Heartbeat<WithStreamedUnaryMethod_GetCurrentVersion<Service > > StreamedService;
+  typedef WithStreamedUnaryMethod_Heartbeat<WithStreamedUnaryMethod_GetCurrentVersion<WithStreamedUnaryMethod_GetServiceNodes<WithStreamedUnaryMethod_GetAllServiceNames<Service > > > > StreamedService;
 };
 
 

@@ -10,23 +10,17 @@ using std::string;
 
 struct ServiceNode
 {
-    string  IpPort;
     int32_t Weight;
-
-    ServiceNode(const string &IpPort, int32_t Weight):
-        IpPort(IpPort), Weight(Weight) { }
-
-    bool operator < (const ServiceNode &x) const
-    {
-        return IpPort < x.IpPort;
-    }
+    int64_t LastHeartbeat;
+    ServiceNode(int32_t weight, int64_t lastHeartbeat):
+        Weight(weight), LastHeartbeat(lastHeartbeat) { }
 };
 
 class SatelliteInternal
 {
 public:
     // ServerName -> ServerSet
-    std::map<string, std::set<ServiceNode>> Servers;
+    std::map<string, std::map<string, ServiceNode>> Servers;
     uint64_t LastUpdate;
 
     SatelliteInternal(void):
@@ -66,23 +60,24 @@ SatelliteImpl::~SatelliteImpl(void)
     }
     // logic
     const auto &serviceName = request->service_info().service_name();
+    const auto &ip_port = request->service_info().server_ip_port();
+    const auto weight = request->service_info().weight();
     if (PImpl->Servers.find(serviceName) == PImpl->Servers.end())
-        PImpl->Servers.insert(std::make_pair(serviceName, std::set<ServiceNode>()));
-    auto &serverSet = PImpl->Servers[serviceName];
-    ServiceNode tmpNode(request->service_info().server_ip_port(), request->service_info().weight());
-    if (serverSet.find(tmpNode) == serverSet.end())
+        PImpl->Servers.insert(std::make_pair(serviceName, std::map<string, ServiceNode>()));
+    auto &servers = PImpl->Servers[serviceName];
+    if (servers.find(ip_port) == servers.end())
     {
-        serverSet.insert(tmpNode);
+        servers.insert(std::make_pair(ip_port, ServiceNode(weight, ts)));
     }
     else
     {
-        auto np = serverSet.find(tmpNode);
-        if (np->Weight != tmpNode.Weight)
+        auto np = servers.find(ip_port);
+        if (np->second.Weight != weight)
         {
-            serverSet.erase(np);
-            serverSet.insert(tmpNode);
+            np->second.Weight = weight;
             PImpl->LastUpdate = ts;
         }
+        np->second.LastHeartbeat = ts;
     }
     return grpc::Status::OK;
 }
@@ -91,5 +86,38 @@ SatelliteImpl::~SatelliteImpl(void)
 {
     response->set_timestamp(PImpl->LastUpdate);
     // spdlog::info("GetCurrentVersion: {}", PImpl->LastUpdate);
+    return grpc::Status::OK;
+}
+
+::grpc::Status SatelliteImpl::GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response)
+{
+    const auto ts = time(nullptr);
+    response->mutable_status()->set_code(0);
+    auto f = PImpl->Servers.find(request->service_name());
+    if (f == PImpl->Servers.end())
+    {
+        response->mutable_status()->set_code(-1001);
+        response->mutable_status()->set_message("Service doesn't exist");
+        return grpc::Status::OK;
+    }
+    for (const auto &i : f->second)
+    {
+        // no heartbeat over 30s
+        if (ts - i.second.LastHeartbeat > 30)
+            continue;
+        auto p = response->add_nodes();
+        p->set_service_name(request->service_name());
+        p->set_server_ip_port(i.first);
+        p->set_weight(i.second.Weight);
+    }
+    return grpc::Status::OK;
+}
+
+::grpc::Status SatelliteImpl::GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response)
+{
+    for (const auto &i : PImpl->Servers)
+    {
+        response->add_service_names(i.first);
+    }
     return grpc::Status::OK;
 }

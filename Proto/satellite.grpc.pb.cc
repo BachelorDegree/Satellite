@@ -20,6 +20,8 @@
 static const char* Satellite_method_names[] = {
   "/Satellite/Heartbeat",
   "/Satellite/GetCurrentVersion",
+  "/Satellite/GetServiceNodes",
+  "/Satellite/GetAllServiceNames",
 };
 
 std::unique_ptr< Satellite::Stub> Satellite::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -31,6 +33,8 @@ std::unique_ptr< Satellite::Stub> Satellite::NewStub(const std::shared_ptr< ::gr
 Satellite::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Heartbeat_(Satellite_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetCurrentVersion_(Satellite_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetServiceNodes_(Satellite_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAllServiceNames_(Satellite_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Satellite::Stub::Heartbeat(::grpc::ClientContext* context, const ::HeartbeatRequest& request, ::GeneralStatus* response) {
@@ -73,6 +77,46 @@ void Satellite::Stub::experimental_async::GetCurrentVersion(::grpc::ClientContex
   return ::grpc::internal::ClientAsyncResponseReaderFactory< ::GetCurrentVersionResponse>::Create(channel_.get(), cq, rpcmethod_GetCurrentVersion_, context, request, false);
 }
 
+::grpc::Status Satellite::Stub::GetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::GetServiceNodesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetServiceNodes_, context, request, response);
+}
+
+void Satellite::Stub::experimental_async::GetServiceNodes(::grpc::ClientContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetServiceNodes_, context, request, response, std::move(f));
+}
+
+void Satellite::Stub::experimental_async::GetServiceNodes(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetServiceNodesResponse* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetServiceNodes_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>* Satellite::Stub::AsyncGetServiceNodesRaw(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::GetServiceNodesResponse>::Create(channel_.get(), cq, rpcmethod_GetServiceNodes_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::GetServiceNodesResponse>* Satellite::Stub::PrepareAsyncGetServiceNodesRaw(::grpc::ClientContext* context, const ::GetServiceNodesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::GetServiceNodesResponse>::Create(channel_.get(), cq, rpcmethod_GetServiceNodes_, context, request, false);
+}
+
+::grpc::Status Satellite::Stub::GetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::GetAllServiceNamesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetAllServiceNames_, context, request, response);
+}
+
+void Satellite::Stub::experimental_async::GetAllServiceNames(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetAllServiceNames_, context, request, response, std::move(f));
+}
+
+void Satellite::Stub::experimental_async::GetAllServiceNames(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetAllServiceNamesResponse* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetAllServiceNames_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>* Satellite::Stub::AsyncGetAllServiceNamesRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::GetAllServiceNamesResponse>::Create(channel_.get(), cq, rpcmethod_GetAllServiceNames_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::GetAllServiceNamesResponse>* Satellite::Stub::PrepareAsyncGetAllServiceNamesRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::GetAllServiceNamesResponse>::Create(channel_.get(), cq, rpcmethod_GetAllServiceNames_, context, request, false);
+}
+
 Satellite::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Satellite_method_names[0],
@@ -84,6 +128,16 @@ Satellite::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Satellite::Service, ::google::protobuf::Empty, ::GetCurrentVersionResponse>(
           std::mem_fn(&Satellite::Service::GetCurrentVersion), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Satellite_method_names[2],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Satellite::Service, ::GetServiceNodesRequest, ::GetServiceNodesResponse>(
+          std::mem_fn(&Satellite::Service::GetServiceNodes), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Satellite_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Satellite::Service, ::google::protobuf::Empty, ::GetAllServiceNamesResponse>(
+          std::mem_fn(&Satellite::Service::GetAllServiceNames), this)));
 }
 
 Satellite::Service::~Service() {
@@ -97,6 +151,20 @@ Satellite::Service::~Service() {
 }
 
 ::grpc::Status Satellite::Service::GetCurrentVersion(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetCurrentVersionResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Satellite::Service::GetServiceNodes(::grpc::ServerContext* context, const ::GetServiceNodesRequest* request, ::GetServiceNodesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Satellite::Service::GetAllServiceNames(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GetAllServiceNamesResponse* response) {
   (void) context;
   (void) request;
   (void) response;

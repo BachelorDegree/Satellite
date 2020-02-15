@@ -39,7 +39,7 @@ namespace protobuf_satellite_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[4];
+  static const ::google::protobuf::internal::ParseTable schema[7];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -49,9 +49,18 @@ void AddDescriptors();
 class GeneralStatus;
 class GeneralStatusDefaultTypeInternal;
 extern GeneralStatusDefaultTypeInternal _GeneralStatus_default_instance_;
+class GetAllServiceNamesResponse;
+class GetAllServiceNamesResponseDefaultTypeInternal;
+extern GetAllServiceNamesResponseDefaultTypeInternal _GetAllServiceNamesResponse_default_instance_;
 class GetCurrentVersionResponse;
 class GetCurrentVersionResponseDefaultTypeInternal;
 extern GetCurrentVersionResponseDefaultTypeInternal _GetCurrentVersionResponse_default_instance_;
+class GetServiceNodesRequest;
+class GetServiceNodesRequestDefaultTypeInternal;
+extern GetServiceNodesRequestDefaultTypeInternal _GetServiceNodesRequest_default_instance_;
+class GetServiceNodesResponse;
+class GetServiceNodesResponseDefaultTypeInternal;
+extern GetServiceNodesResponseDefaultTypeInternal _GetServiceNodesResponse_default_instance_;
 class HeartbeatRequest;
 class HeartbeatRequestDefaultTypeInternal;
 extern HeartbeatRequestDefaultTypeInternal _HeartbeatRequest_default_instance_;
@@ -61,7 +70,10 @@ extern ServiceInfoDefaultTypeInternal _ServiceInfo_default_instance_;
 namespace google {
 namespace protobuf {
 template<> ::GeneralStatus* Arena::CreateMaybeMessage<::GeneralStatus>(Arena*);
+template<> ::GetAllServiceNamesResponse* Arena::CreateMaybeMessage<::GetAllServiceNamesResponse>(Arena*);
 template<> ::GetCurrentVersionResponse* Arena::CreateMaybeMessage<::GetCurrentVersionResponse>(Arena*);
+template<> ::GetServiceNodesRequest* Arena::CreateMaybeMessage<::GetServiceNodesRequest>(Arena*);
+template<> ::GetServiceNodesResponse* Arena::CreateMaybeMessage<::GetServiceNodesResponse>(Arena*);
 template<> ::HeartbeatRequest* Arena::CreateMaybeMessage<::HeartbeatRequest>(Arena*);
 template<> ::ServiceInfo* Arena::CreateMaybeMessage<::ServiceInfo>(Arena*);
 }  // namespace protobuf
@@ -418,11 +430,11 @@ class ServiceInfo : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::std::string* release_server_ip_port();
   void set_allocated_server_ip_port(::std::string* server_ip_port);
 
-  // uint32 weight = 3;
+  // int32 weight = 3;
   void clear_weight();
   static const int kWeightFieldNumber = 3;
-  ::google::protobuf::uint32 weight() const;
-  void set_weight(::google::protobuf::uint32 value);
+  ::google::protobuf::int32 weight() const;
+  void set_weight(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ServiceInfo)
  private:
@@ -430,7 +442,7 @@ class ServiceInfo : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr service_name_;
   ::google::protobuf::internal::ArenaStringPtr server_ip_port_;
-  ::google::protobuf::uint32 weight_;
+  ::google::protobuf::int32 weight_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_satellite_2eproto::TableStruct;
 };
@@ -534,6 +546,358 @@ class GetCurrentVersionResponse : public ::google::protobuf::Message /* @@protoc
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int64 timestamp_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_satellite_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GetServiceNodesRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:GetServiceNodesRequest) */ {
+ public:
+  GetServiceNodesRequest();
+  virtual ~GetServiceNodesRequest();
+
+  GetServiceNodesRequest(const GetServiceNodesRequest& from);
+
+  inline GetServiceNodesRequest& operator=(const GetServiceNodesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetServiceNodesRequest(GetServiceNodesRequest&& from) noexcept
+    : GetServiceNodesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetServiceNodesRequest& operator=(GetServiceNodesRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetServiceNodesRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetServiceNodesRequest* internal_default_instance() {
+    return reinterpret_cast<const GetServiceNodesRequest*>(
+               &_GetServiceNodesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  void Swap(GetServiceNodesRequest* other);
+  friend void swap(GetServiceNodesRequest& a, GetServiceNodesRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetServiceNodesRequest* New() const final {
+    return CreateMaybeMessage<GetServiceNodesRequest>(NULL);
+  }
+
+  GetServiceNodesRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<GetServiceNodesRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const GetServiceNodesRequest& from);
+  void MergeFrom(const GetServiceNodesRequest& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetServiceNodesRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string service_name = 1;
+  void clear_service_name();
+  static const int kServiceNameFieldNumber = 1;
+  const ::std::string& service_name() const;
+  void set_service_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_service_name(::std::string&& value);
+  #endif
+  void set_service_name(const char* value);
+  void set_service_name(const char* value, size_t size);
+  ::std::string* mutable_service_name();
+  ::std::string* release_service_name();
+  void set_allocated_service_name(::std::string* service_name);
+
+  // @@protoc_insertion_point(class_scope:GetServiceNodesRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr service_name_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_satellite_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GetServiceNodesResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:GetServiceNodesResponse) */ {
+ public:
+  GetServiceNodesResponse();
+  virtual ~GetServiceNodesResponse();
+
+  GetServiceNodesResponse(const GetServiceNodesResponse& from);
+
+  inline GetServiceNodesResponse& operator=(const GetServiceNodesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetServiceNodesResponse(GetServiceNodesResponse&& from) noexcept
+    : GetServiceNodesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetServiceNodesResponse& operator=(GetServiceNodesResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetServiceNodesResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetServiceNodesResponse* internal_default_instance() {
+    return reinterpret_cast<const GetServiceNodesResponse*>(
+               &_GetServiceNodesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  void Swap(GetServiceNodesResponse* other);
+  friend void swap(GetServiceNodesResponse& a, GetServiceNodesResponse& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetServiceNodesResponse* New() const final {
+    return CreateMaybeMessage<GetServiceNodesResponse>(NULL);
+  }
+
+  GetServiceNodesResponse* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<GetServiceNodesResponse>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const GetServiceNodesResponse& from);
+  void MergeFrom(const GetServiceNodesResponse& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetServiceNodesResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .ServiceInfo nodes = 2;
+  int nodes_size() const;
+  void clear_nodes();
+  static const int kNodesFieldNumber = 2;
+  ::ServiceInfo* mutable_nodes(int index);
+  ::google::protobuf::RepeatedPtrField< ::ServiceInfo >*
+      mutable_nodes();
+  const ::ServiceInfo& nodes(int index) const;
+  ::ServiceInfo* add_nodes();
+  const ::google::protobuf::RepeatedPtrField< ::ServiceInfo >&
+      nodes() const;
+
+  // .GeneralStatus status = 1;
+  bool has_status() const;
+  void clear_status();
+  static const int kStatusFieldNumber = 1;
+  private:
+  const ::GeneralStatus& _internal_status() const;
+  public:
+  const ::GeneralStatus& status() const;
+  ::GeneralStatus* release_status();
+  ::GeneralStatus* mutable_status();
+  void set_allocated_status(::GeneralStatus* status);
+
+  // @@protoc_insertion_point(class_scope:GetServiceNodesResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::ServiceInfo > nodes_;
+  ::GeneralStatus* status_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_satellite_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GetAllServiceNamesResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:GetAllServiceNamesResponse) */ {
+ public:
+  GetAllServiceNamesResponse();
+  virtual ~GetAllServiceNamesResponse();
+
+  GetAllServiceNamesResponse(const GetAllServiceNamesResponse& from);
+
+  inline GetAllServiceNamesResponse& operator=(const GetAllServiceNamesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetAllServiceNamesResponse(GetAllServiceNamesResponse&& from) noexcept
+    : GetAllServiceNamesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAllServiceNamesResponse& operator=(GetAllServiceNamesResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetAllServiceNamesResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetAllServiceNamesResponse* internal_default_instance() {
+    return reinterpret_cast<const GetAllServiceNamesResponse*>(
+               &_GetAllServiceNamesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(GetAllServiceNamesResponse* other);
+  friend void swap(GetAllServiceNamesResponse& a, GetAllServiceNamesResponse& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetAllServiceNamesResponse* New() const final {
+    return CreateMaybeMessage<GetAllServiceNamesResponse>(NULL);
+  }
+
+  GetAllServiceNamesResponse* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<GetAllServiceNamesResponse>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const GetAllServiceNamesResponse& from);
+  void MergeFrom(const GetAllServiceNamesResponse& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetAllServiceNamesResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string service_names = 1;
+  int service_names_size() const;
+  void clear_service_names();
+  static const int kServiceNamesFieldNumber = 1;
+  const ::std::string& service_names(int index) const;
+  ::std::string* mutable_service_names(int index);
+  void set_service_names(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_service_names(int index, ::std::string&& value);
+  #endif
+  void set_service_names(int index, const char* value);
+  void set_service_names(int index, const char* value, size_t size);
+  ::std::string* add_service_names();
+  void add_service_names(const ::std::string& value);
+  #if LANG_CXX11
+  void add_service_names(::std::string&& value);
+  #endif
+  void add_service_names(const char* value);
+  void add_service_names(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& service_names() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_service_names();
+
+  // @@protoc_insertion_point(class_scope:GetAllServiceNamesResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> service_names_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_satellite_2eproto::TableStruct;
 };
@@ -797,15 +1161,15 @@ inline void ServiceInfo::set_allocated_server_ip_port(::std::string* server_ip_p
   // @@protoc_insertion_point(field_set_allocated:ServiceInfo.server_ip_port)
 }
 
-// uint32 weight = 3;
+// int32 weight = 3;
 inline void ServiceInfo::clear_weight() {
-  weight_ = 0u;
+  weight_ = 0;
 }
-inline ::google::protobuf::uint32 ServiceInfo::weight() const {
+inline ::google::protobuf::int32 ServiceInfo::weight() const {
   // @@protoc_insertion_point(field_get:ServiceInfo.weight)
   return weight_;
 }
-inline void ServiceInfo::set_weight(::google::protobuf::uint32 value) {
+inline void ServiceInfo::set_weight(::google::protobuf::int32 value) {
   
   weight_ = value;
   // @@protoc_insertion_point(field_set:ServiceInfo.weight)
@@ -829,9 +1193,233 @@ inline void GetCurrentVersionResponse::set_timestamp(::google::protobuf::int64 v
   // @@protoc_insertion_point(field_set:GetCurrentVersionResponse.timestamp)
 }
 
+// -------------------------------------------------------------------
+
+// GetServiceNodesRequest
+
+// string service_name = 1;
+inline void GetServiceNodesRequest::clear_service_name() {
+  service_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GetServiceNodesRequest::service_name() const {
+  // @@protoc_insertion_point(field_get:GetServiceNodesRequest.service_name)
+  return service_name_.GetNoArena();
+}
+inline void GetServiceNodesRequest::set_service_name(const ::std::string& value) {
+  
+  service_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:GetServiceNodesRequest.service_name)
+}
+#if LANG_CXX11
+inline void GetServiceNodesRequest::set_service_name(::std::string&& value) {
+  
+  service_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetServiceNodesRequest.service_name)
+}
+#endif
+inline void GetServiceNodesRequest::set_service_name(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  service_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetServiceNodesRequest.service_name)
+}
+inline void GetServiceNodesRequest::set_service_name(const char* value, size_t size) {
+  
+  service_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetServiceNodesRequest.service_name)
+}
+inline ::std::string* GetServiceNodesRequest::mutable_service_name() {
+  
+  // @@protoc_insertion_point(field_mutable:GetServiceNodesRequest.service_name)
+  return service_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GetServiceNodesRequest::release_service_name() {
+  // @@protoc_insertion_point(field_release:GetServiceNodesRequest.service_name)
+  
+  return service_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetServiceNodesRequest::set_allocated_service_name(::std::string* service_name) {
+  if (service_name != NULL) {
+    
+  } else {
+    
+  }
+  service_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), service_name);
+  // @@protoc_insertion_point(field_set_allocated:GetServiceNodesRequest.service_name)
+}
+
+// -------------------------------------------------------------------
+
+// GetServiceNodesResponse
+
+// .GeneralStatus status = 1;
+inline bool GetServiceNodesResponse::has_status() const {
+  return this != internal_default_instance() && status_ != NULL;
+}
+inline void GetServiceNodesResponse::clear_status() {
+  if (GetArenaNoVirtual() == NULL && status_ != NULL) {
+    delete status_;
+  }
+  status_ = NULL;
+}
+inline const ::GeneralStatus& GetServiceNodesResponse::_internal_status() const {
+  return *status_;
+}
+inline const ::GeneralStatus& GetServiceNodesResponse::status() const {
+  const ::GeneralStatus* p = status_;
+  // @@protoc_insertion_point(field_get:GetServiceNodesResponse.status)
+  return p != NULL ? *p : *reinterpret_cast<const ::GeneralStatus*>(
+      &::_GeneralStatus_default_instance_);
+}
+inline ::GeneralStatus* GetServiceNodesResponse::release_status() {
+  // @@protoc_insertion_point(field_release:GetServiceNodesResponse.status)
+  
+  ::GeneralStatus* temp = status_;
+  status_ = NULL;
+  return temp;
+}
+inline ::GeneralStatus* GetServiceNodesResponse::mutable_status() {
+  
+  if (status_ == NULL) {
+    auto* p = CreateMaybeMessage<::GeneralStatus>(GetArenaNoVirtual());
+    status_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:GetServiceNodesResponse.status)
+  return status_;
+}
+inline void GetServiceNodesResponse::set_allocated_status(::GeneralStatus* status) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete status_;
+  }
+  if (status) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      status = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, status, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  status_ = status;
+  // @@protoc_insertion_point(field_set_allocated:GetServiceNodesResponse.status)
+}
+
+// repeated .ServiceInfo nodes = 2;
+inline int GetServiceNodesResponse::nodes_size() const {
+  return nodes_.size();
+}
+inline void GetServiceNodesResponse::clear_nodes() {
+  nodes_.Clear();
+}
+inline ::ServiceInfo* GetServiceNodesResponse::mutable_nodes(int index) {
+  // @@protoc_insertion_point(field_mutable:GetServiceNodesResponse.nodes)
+  return nodes_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::ServiceInfo >*
+GetServiceNodesResponse::mutable_nodes() {
+  // @@protoc_insertion_point(field_mutable_list:GetServiceNodesResponse.nodes)
+  return &nodes_;
+}
+inline const ::ServiceInfo& GetServiceNodesResponse::nodes(int index) const {
+  // @@protoc_insertion_point(field_get:GetServiceNodesResponse.nodes)
+  return nodes_.Get(index);
+}
+inline ::ServiceInfo* GetServiceNodesResponse::add_nodes() {
+  // @@protoc_insertion_point(field_add:GetServiceNodesResponse.nodes)
+  return nodes_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::ServiceInfo >&
+GetServiceNodesResponse::nodes() const {
+  // @@protoc_insertion_point(field_list:GetServiceNodesResponse.nodes)
+  return nodes_;
+}
+
+// -------------------------------------------------------------------
+
+// GetAllServiceNamesResponse
+
+// repeated string service_names = 1;
+inline int GetAllServiceNamesResponse::service_names_size() const {
+  return service_names_.size();
+}
+inline void GetAllServiceNamesResponse::clear_service_names() {
+  service_names_.Clear();
+}
+inline const ::std::string& GetAllServiceNamesResponse::service_names(int index) const {
+  // @@protoc_insertion_point(field_get:GetAllServiceNamesResponse.service_names)
+  return service_names_.Get(index);
+}
+inline ::std::string* GetAllServiceNamesResponse::mutable_service_names(int index) {
+  // @@protoc_insertion_point(field_mutable:GetAllServiceNamesResponse.service_names)
+  return service_names_.Mutable(index);
+}
+inline void GetAllServiceNamesResponse::set_service_names(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:GetAllServiceNamesResponse.service_names)
+  service_names_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void GetAllServiceNamesResponse::set_service_names(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:GetAllServiceNamesResponse.service_names)
+  service_names_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void GetAllServiceNamesResponse::set_service_names(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  service_names_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:GetAllServiceNamesResponse.service_names)
+}
+inline void GetAllServiceNamesResponse::set_service_names(int index, const char* value, size_t size) {
+  service_names_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:GetAllServiceNamesResponse.service_names)
+}
+inline ::std::string* GetAllServiceNamesResponse::add_service_names() {
+  // @@protoc_insertion_point(field_add_mutable:GetAllServiceNamesResponse.service_names)
+  return service_names_.Add();
+}
+inline void GetAllServiceNamesResponse::add_service_names(const ::std::string& value) {
+  service_names_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:GetAllServiceNamesResponse.service_names)
+}
+#if LANG_CXX11
+inline void GetAllServiceNamesResponse::add_service_names(::std::string&& value) {
+  service_names_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:GetAllServiceNamesResponse.service_names)
+}
+#endif
+inline void GetAllServiceNamesResponse::add_service_names(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  service_names_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:GetAllServiceNamesResponse.service_names)
+}
+inline void GetAllServiceNamesResponse::add_service_names(const char* value, size_t size) {
+  service_names_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:GetAllServiceNamesResponse.service_names)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+GetAllServiceNamesResponse::service_names() const {
+  // @@protoc_insertion_point(field_list:GetAllServiceNamesResponse.service_names)
+  return service_names_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+GetAllServiceNamesResponse::mutable_service_names() {
+  // @@protoc_insertion_point(field_mutable_list:GetAllServiceNamesResponse.service_names)
+  return &service_names_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
