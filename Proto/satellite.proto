@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+message GeneralStatus {
+    int32 code = 1;
+    string message = 2;
+}
+
+service Satellite {
+    rpc Heartbeat(HeartbeatRequest) returns (GeneralStatus);
+}
+
+message HeartbeatRequest {
+    string service_name     = 1;
+    string server_ip_port   = 2;
+    uint64 timestamp        = 3;
+}
