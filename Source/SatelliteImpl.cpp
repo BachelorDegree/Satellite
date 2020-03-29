@@ -61,6 +61,7 @@ SatelliteImpl::~SatelliteImpl(void)
         response->set_message(fmt::format("Server timestamp: {}, your timestamp: {}", ts, request->timestamp()));
         return grpc::Status::OK;
     }
+    // spdlog::info("Heartbeat: name={}, ip_port={}", request->service_info().service_name(), request->service_info().server_ip_port());
     // logic
     const std::lock_guard<std::mutex> sguard(PImpl->MutexServers);
     const auto &serviceName = request->service_info().service_name();
@@ -72,6 +73,7 @@ SatelliteImpl::~SatelliteImpl(void)
     if (servers.find(ip_port) == servers.end())
     {
         servers.insert(std::make_pair(ip_port, ServiceNode(weight, ts)));
+        PImpl->LastUpdate = ts;
     }
     else
     {

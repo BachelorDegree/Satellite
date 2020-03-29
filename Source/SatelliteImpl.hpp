@@ -1,7 +1,7 @@
 #pragma once
 
-#include "satellite.pb.h"
-#include "satellite.grpc.pb.h"
+#include "coredeps/satellite.pb.h"
+#include "coredeps/satellite.grpc.pb.h"
 
 class SatelliteInternal;
 class SatelliteImpl final : public Satellite::Service
